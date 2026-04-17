@@ -48,7 +48,7 @@ export function Footer() {
                   Learn
                 </span>
               </Link>
-              <p className="mt-sm max-w-xs text-body-sm text-text-inverse/40">
+              <p className="mt-sm text-body-sm text-text-inverse/40" style={{ maxWidth: '280px' }}>
                 Workplace learning without the complexity.
               </p>
             </div>

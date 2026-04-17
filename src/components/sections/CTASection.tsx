@@ -43,7 +43,7 @@ export function CTASection({
         {/* Problem reframe for bottom CTA */}
         {isBottom && (
           <ScrollReveal>
-            <p className="text-body-md text-text-inverse/50 mb-md max-w-xl">
+            <p className="text-body-md text-text-inverse/50 mb-md" style={{ maxWidth: '560px' }}>
               L&D teams spend hours managing tools instead of delivering outcomes.
             </p>
           </ScrollReveal>
@@ -59,7 +59,8 @@ export function CTASection({
         {((subtext !== undefined ? subtext : defaultSubtext)) && (
           <ScrollReveal delay={2}>
             <p
-              className={`mt-sm w-full max-w-xl ${isBottom ? "text-body-lg text-text-inverse/60" : "text-body-lg text-text-secondary"}`}
+              className={`mt-sm w-full ${isBottom ? "text-body-lg text-text-inverse/60" : "text-body-lg text-text-secondary"}`}
+              style={{ maxWidth: '640px' }}
             >
               {subtext || defaultSubtext}
             </p>

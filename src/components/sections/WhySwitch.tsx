@@ -74,7 +74,7 @@ export function WhySwitch() {
             <p className="text-h3 font-semibold text-text-primary">
               <span className="gradient-text">7+ hours</span> saved per week on learning admin
             </p>
-            <p className="text-body-md text-text-secondary mt-xs max-w-md mx-auto">
+            <p className="text-body-md text-text-secondary mt-xs mx-auto" style={{ maxWidth: '520px' }}>
               Most learning tools do one thing well. Sodium Learn does all of it.
             </p>
           </div>

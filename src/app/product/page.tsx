@@ -242,7 +242,7 @@ export default function ProductPage() {
               <h2 className="text-h2 mt-sm text-text-primary font-display">
                 Connects with tools you already use
               </h2>
-              <p className="text-body-lg mt-xs mx-auto max-w-xl text-text-secondary">
+              <p className="text-body-lg mt-xs mx-auto text-text-secondary" style={{ maxWidth: '640px' }}>
                 Sync with your HRIS, SSO, and communication platforms — no manual data entry required.
               </p>
             </div>
