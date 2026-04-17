@@ -12,7 +12,7 @@ import { TestimonialsWall } from "@/components/sections/TestimonialsWall";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { getDraftClient } from "@/lib/sanity/client";
 import { TESTIMONIALS_QUERY, FAQ_QUERY } from "@/lib/sanity/queries";
-import { VisualEditing } from "@/components/sanity/VisualEditing";
+import { SanityVisualEditing } from "@/components/sanity/VisualEditing";
 
 export const revalidate = 3600;
 
@@ -32,7 +32,7 @@ export default async function Home() {
 
   return (
     <>
-      {draft.isEnabled && <VisualEditing />}
+      {draft.isEnabled && <SanityVisualEditing />}
       <Hero />
       <Problem />
       <SocialProof />
