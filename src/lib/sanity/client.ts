@@ -1,20 +1,29 @@
-import { createClient } from "@sanity/client";
+import { createClient, type SanityClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: "2024-01-01",
-  useCdn: true,
-});
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
-export const serverClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: "2024-01-01",
+function createSanityClient(options: { useCdn: boolean; token?: string; perspective?: string }) {
+  if (!projectId) {
+    return null;
+  }
+  return createClient({
+    projectId,
+    dataset,
+    apiVersion: "2024-01-01",
+    useCdn: options.useCdn,
+    token: options.token,
+    perspective: options.perspective as undefined | "previewDrafts",
+  });
+}
+
+export const client = createSanityClient({ useCdn: true }) as SanityClient;
+
+export const serverClient = createSanityClient({
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
-});
+}) as SanityClient;
 
 /**
  * Get a Sanity client with draft mode enabled
@@ -25,21 +34,21 @@ export async function getDraftClient() {
   const draft = await draftMode();
 
   if (draft.isEnabled) {
-    return createClient({
-      projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-      dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-      apiVersion: "2024-01-01",
+    return createSanityClient({
       useCdn: false,
       token: process.env.SANITY_API_TOKEN,
       perspective: "previewDrafts",
-    });
+    }) as SanityClient;
   }
 
   return client;
 }
 
-const builder = createImageUrlBuilder(client);
+const builder = projectId ? createImageUrlBuilder(client) : null;
 
-export function urlFor(source: Parameters<typeof builder.image>[0]) {
+export function urlFor(source: Parameters<ReturnType<typeof createImageUrlBuilder>["image"]>[0]) {
+  if (!builder) {
+    return { url: () => "" };
+  }
   return builder.image(source);
 }
