@@ -2,6 +2,7 @@ import { draftMode } from "next/headers";
 import { Hero } from "@/components/sections/Hero";
 import { Problem } from "@/components/sections/Problem";
 import { SocialProof } from "@/components/sections/SocialProof";
+import { Stats } from "@/components/sections/Stats";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Features } from "@/components/sections/Features";
 import { CTASection } from "@/components/sections/CTASection";
@@ -34,8 +35,8 @@ export default async function Home() {
     <>
       {draft.isEnabled && <SanityVisualEditing />}
       <Hero />
-      <Problem />
       <SocialProof />
+      <Stats />
       <HowItWorks />
       <Features />
       <CTASection

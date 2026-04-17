@@ -11,7 +11,10 @@ const comparisons = [
 
 export function WhySwitch() {
   return (
-    <section className="mesh-features grain relative py-section overflow-hidden">
+    <section className="relative py-section overflow-hidden">
+      <div className="absolute inset-0 mesh-features" />
+      <div className="absolute inset-0 grain" />
+
       <Container>
         <ScrollReveal>
           <Badge>WHY SWITCH</Badge>
@@ -22,16 +25,18 @@ export function WhySwitch() {
 
         <div className="mt-xxl grid gap-md lg:grid-cols-2">
           <ScrollReveal delay={1}>
-            <div className="rounded-xl border border-border-subtle/50 bg-bg-white p-lg shadow-card">
-              <h3 className="text-h4 font-semibold text-text-secondary font-display mb-md">
+            <div className="h-full rounded-xl border border-border-subtle/50 bg-bg-white p-lg shadow-card">
+              <h3 className="text-h4 font-display font-semibold text-text-secondary mb-lg">
                 Without Sodium
               </h3>
-              <ul className="space-y-sm">
+              <ul className="space-y-md">
                 {comparisons.map((item) => (
                   <li key={item.without} className="flex items-start gap-sm">
-                    <svg className="mt-[2px] shrink-0 text-error-500" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M13.5 4.5L4.5 13.5M4.5 4.5L13.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <div className="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-error-100 shrink-0 mt-[2px]">
+                      <svg className="text-error-500" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M10 4L4 10M4 4l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
                     <span className="text-body-md text-text-secondary">{item.without}</span>
                   </li>
                 ))}
@@ -40,16 +45,21 @@ export function WhySwitch() {
           </ScrollReveal>
 
           <ScrollReveal delay={2}>
-            <div className="rounded-xl border border-brand-200/50 bg-brand-50/50 p-lg shadow-card">
-              <h3 className="text-h4 font-semibold text-action-primary font-display mb-md">
+            <div className="relative h-full rounded-xl border border-brand-200/60 bg-brand-50/40 p-lg shadow-card overflow-hidden">
+              {/* Subtle decorative gradient */}
+              <div className="absolute top-0 right-0 h-[120px] w-[120px] rounded-full bg-action-primary/5 blur-[40px]" />
+
+              <h3 className="text-h4 font-display font-semibold text-action-primary mb-lg">
                 With Sodium
               </h3>
-              <ul className="space-y-sm">
+              <ul className="space-y-md">
                 {comparisons.map((item) => (
                   <li key={item.with} className="flex items-start gap-sm">
-                    <svg className="mt-[2px] shrink-0 text-success-500" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M3 9L7.5 13.5L15 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <div className="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-success-100 shrink-0 mt-[2px]">
+                      <svg className="text-success-700" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M3 7l3 3 5-5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
                     <span className="text-body-md font-medium text-text-primary">{item.with}</span>
                   </li>
                 ))}
@@ -60,7 +70,7 @@ export function WhySwitch() {
 
         <ScrollReveal delay={3}>
           <p className="mt-xl text-body-lg text-text-secondary text-center max-w-2xl mx-auto">
-            Most learning tools do one thing well. Sodium Learn does all of it.
+            Most learning tools do one thing well. <span className="font-semibold text-text-primary">Sodium Learn does all of it.</span>
           </p>
         </ScrollReveal>
       </Container>

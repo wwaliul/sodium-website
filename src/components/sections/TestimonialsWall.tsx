@@ -72,13 +72,13 @@ function normalizeTestimonials(sanityData: unknown[]): Testimonial[] {
     .filter((t) => t.quote && t.authorName);
 }
 
-const gradients = [
-  "from-brand-100 to-brand-50",
-  "from-success-100 to-success-300/20",
-  "from-accent-fuchsia to-warning-100/40",
-  "from-accent-lavender to-accent-indigo",
-  "from-info-100 to-brand-50",
-  "from-warning-100 to-accent-fuchsia",
+const metricStyles = [
+  { bg: "bg-brand-50", border: "border-brand-200/60", text: "text-action-primary" },
+  { bg: "bg-success-100", border: "border-success-300/40", text: "text-success-700" },
+  { bg: "bg-accent-fuchsia", border: "border-warning-300/40", text: "text-warning-700" },
+  { bg: "bg-accent-lavender", border: "border-brand-200/40", text: "text-brand-600" },
+  { bg: "bg-info-100", border: "border-info-300/40", text: "text-info-700" },
+  { bg: "bg-warning-100", border: "border-warning-300/40", text: "text-warning-700" },
 ];
 
 export function TestimonialsWall({ sanityData }: TestimonialsWallProps) {
@@ -88,48 +88,62 @@ export function TestimonialsWall({ sanityData }: TestimonialsWallProps) {
       : fallbackTestimonials;
 
   return (
-    <section className="mesh-features relative py-section overflow-hidden">
+    <section className="relative py-section overflow-hidden">
+      <div className="absolute inset-0 mesh-features" />
+      <div className="absolute inset-0 grain" />
+
       <Container>
         <ScrollReveal>
           <Badge>TESTIMONIALS</Badge>
           <h2 className="text-h2 mt-sm text-text-primary font-display">
-            Teams that switched to Sodium Learn
+            Teams that switched to <span className="gradient-text">Sodium Learn</span>
           </h2>
         </ScrollReveal>
 
         <div className="mt-xxl grid gap-md sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <ScrollReveal key={t.authorName} delay={Math.min(i + 1, 3)}>
-              <div className="group flex h-full flex-col rounded-xl border border-border-subtle/50 bg-bg-white p-md shadow-card transition-all duration-300 hover:shadow-elevated hover:-translate-y-[2px]">
-                {/* Metric badge */}
-                {t.metricHighlight && (
-                  <span className={`mb-sm inline-block self-start rounded-md bg-gradient-to-r ${gradients[i % gradients.length]} px-sm py-xs text-label-sm font-semibold text-action-primary`}>
-                    {t.metricHighlight}
-                  </span>
-                )}
-                <p className="text-body-md text-text-primary leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-auto pt-md border-t border-border-subtle/30">
-                  <div className="flex items-center gap-sm">
-                    <div className="h-[36px] w-[36px] rounded-full bg-gradient-to-br from-brand-200 to-brand-400 flex items-center justify-center">
-                      <span className="text-label-sm font-bold text-white">
-                        {t.authorName.split(" ").map(n => n[0]).join("")}
+          {testimonials.map((t, i) => {
+            const style = metricStyles[i % metricStyles.length];
+            return (
+              <ScrollReveal key={t.authorName} delay={Math.min(i + 1, 3)}>
+                <div className="group flex h-full flex-col rounded-xl border border-border-subtle/50 bg-bg-white shadow-card transition-all duration-300 hover:shadow-elevated hover:-translate-y-[2px]">
+                  {/* Metric badge */}
+                  {t.metricHighlight && (
+                    <div className="px-md pt-md">
+                      <span className={`inline-block rounded-md ${style.bg} ${style.border} border px-sm py-xs text-label-sm font-semibold ${style.text}`}>
+                        {t.metricHighlight}
                       </span>
                     </div>
-                    <div>
-                      <p className="text-body-sm font-semibold text-text-primary">{t.authorName}</p>
-                      {(t.authorTitle || t.authorCompany) && (
-                        <p className="text-label-sm text-text-secondary">
-                          {t.authorTitle}{t.authorTitle && t.authorCompany ? ", " : ""}{t.authorCompany}
-                        </p>
-                      )}
+                  )}
+
+                  {/* Quote */}
+                  <div className="px-md pt-sm pb-md flex-1">
+                    <p className="text-body-md text-text-primary leading-relaxed">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Author */}
+                  <div className="border-t border-border-subtle/30 px-md py-sm">
+                    <div className="flex items-center gap-sm">
+                      <div className="h-[40px] w-[40px] rounded-full bg-gradient-to-br from-brand-200 to-action-primary flex items-center justify-center shadow-sm shadow-action-primary/10">
+                        <span className="text-label-sm font-bold text-white">
+                          {t.authorName.split(" ").map(n => n[0]).join("")}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-body-sm font-semibold text-text-primary">{t.authorName}</p>
+                        {(t.authorTitle || t.authorCompany) && (
+                          <p className="text-label-sm text-text-secondary">
+                            {t.authorTitle}{t.authorTitle && t.authorCompany ? ", " : ""}{t.authorCompany}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
+              </ScrollReveal>
+            );
+          })}
         </div>
       </Container>
     </section>
