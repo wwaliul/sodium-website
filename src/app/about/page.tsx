@@ -78,6 +78,7 @@ interface TeamMember {
 
 async function getTeam(): Promise<TeamMember[]> {
   try {
+    if (!client) return fallbackTeam;
     const team = await client.fetch(TEAM_QUERY);
     if (team && team.length > 0) return team;
   } catch {

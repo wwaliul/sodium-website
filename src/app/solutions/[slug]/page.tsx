@@ -130,6 +130,7 @@ interface SanitySolution {
 
 async function getSolution(slug: string): Promise<SanitySolution | null> {
   try {
+    if (!client) return null;
     const solution = await client.fetch(SOLUTION_BY_SLUG_QUERY, { slug });
     if (solution) return solution;
   } catch {
@@ -140,6 +141,7 @@ async function getSolution(slug: string): Promise<SanitySolution | null> {
 
 async function getSlugs(): Promise<string[]> {
   try {
+    if (!client) return Object.keys(fallbackSolutions);
     const slugs = await client.fetch(SOLUTION_SLUGS_QUERY);
     if (slugs && slugs.length > 0) return slugs;
   } catch {

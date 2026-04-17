@@ -32,17 +32,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     try {
       const { client } = await import("@/lib/sanity/client");
-      const { POST_SLUGS_QUERY, SOLUTION_SLUGS_QUERY } = await import(
-        "@/lib/sanity/queries"
-      );
+      if (client) {
+        const { POST_SLUGS_QUERY, SOLUTION_SLUGS_QUERY } = await import(
+          "@/lib/sanity/queries"
+        );
 
-      const sanityBlogSlugs = await client.fetch(POST_SLUGS_QUERY);
-      if (sanityBlogSlugs && sanityBlogSlugs.length > 0) {
-        blogSlugs = sanityBlogSlugs;
-      }
-      const sanitySolutionSlugs = await client.fetch(SOLUTION_SLUGS_QUERY);
-      if (sanitySolutionSlugs && sanitySolutionSlugs.length > 0) {
-        solutionSlugs = sanitySolutionSlugs;
+        const sanityBlogSlugs = await client.fetch(POST_SLUGS_QUERY);
+        if (sanityBlogSlugs && sanityBlogSlugs.length > 0) {
+          blogSlugs = sanityBlogSlugs;
+        }
+        const sanitySolutionSlugs = await client.fetch(SOLUTION_SLUGS_QUERY);
+        if (sanitySolutionSlugs && sanitySolutionSlugs.length > 0) {
+          solutionSlugs = sanitySolutionSlugs;
+        }
       }
     } catch {
       // Use fallbacks

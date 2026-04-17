@@ -24,8 +24,10 @@ export default async function Home() {
   let sanityFaqs: unknown[] = [];
 
   try {
-    sanityTestimonials = await client.fetch(TESTIMONIALS_QUERY);
-    sanityFaqs = await client.fetch(FAQ_QUERY);
+    if (client) {
+      sanityTestimonials = await client.fetch(TESTIMONIALS_QUERY);
+      sanityFaqs = await client.fetch(FAQ_QUERY);
+    }
   } catch {
     // Sanity not configured — components use their own fallbacks
   }

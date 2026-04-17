@@ -84,6 +84,7 @@ interface PostCard {
 
 async function getPosts(): Promise<PostCard[]> {
   try {
+    if (!client) return fallbackPosts;
     const posts = await client.fetch(POSTS_QUERY);
     if (posts && posts.length > 0) return posts;
   } catch {

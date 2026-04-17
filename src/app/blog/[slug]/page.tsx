@@ -140,6 +140,7 @@ interface SanityPost {
 
 async function getPost(slug: string): Promise<SanityPost | null> {
   try {
+    if (!client) return null;
     const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
     if (post) return post;
   } catch {
@@ -150,6 +151,7 @@ async function getPost(slug: string): Promise<SanityPost | null> {
 
 async function getSlugs(): Promise<string[]> {
   try {
+    if (!client) return Object.keys(fallbackPosts);
     const slugs = await client.fetch(POST_SLUGS_QUERY);
     if (slugs && slugs.length > 0) return slugs;
   } catch {
