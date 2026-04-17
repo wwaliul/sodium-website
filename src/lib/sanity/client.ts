@@ -1,8 +1,12 @@
 import { createClient, type SanityClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+
+if (!projectId) {
+  console.warn("Missing NEXT_PUBLIC_SANITY_PROJECT_ID environment variable");
+}
 
 function createSanityClient(options: { useCdn: boolean; token?: string; perspective?: string }) {
   if (!projectId) {
@@ -18,12 +22,12 @@ function createSanityClient(options: { useCdn: boolean; token?: string; perspect
   });
 }
 
-export const client = createSanityClient({ useCdn: true }) as SanityClient;
+export const client = createSanityClient({ useCdn: true });
 
 export const serverClient = createSanityClient({
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
-}) as SanityClient;
+});
 
 /**
  * Get a Sanity client with draft mode enabled
@@ -44,10 +48,10 @@ export async function getDraftClient() {
   return client;
 }
 
-const builder = projectId ? createImageUrlBuilder(client) : null;
+const builder = projectId && client ? createImageUrlBuilder(client) : null;
 
 export function urlFor(source: Parameters<ReturnType<typeof createImageUrlBuilder>["image"]>[0]) {
-  if (!builder) {
+  if (!builder || !client) {
     return { url: () => "" };
   }
   return builder.image(source);
