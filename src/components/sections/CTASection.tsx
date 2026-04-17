@@ -4,18 +4,26 @@ import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 interface CTASectionProps {
   variant?: "mid" | "bottom";
-  headline: string;
+  headline?: string;
   subtext?: string;
   className?: string;
 }
 
 export function CTASection({
-  variant = "mid",
+  variant = "bottom",
   headline,
   subtext,
   className,
 }: CTASectionProps) {
   const isBottom = variant === "bottom";
+
+  const defaultHeadline = isBottom
+    ? "Stop managing learning. Start delivering outcomes."
+    : "Ready to see what 7 hours saved looks like?";
+
+  const defaultSubtext = isBottom
+    ? "Run training, knowledge, and learning — all in one place."
+    : "Teams using Sodium Learn reclaim over 7 hours a week on learning administration.";
 
   return (
     <section className={`relative overflow-hidden ${isBottom ? "mesh-dark" : "bg-bg-secondary"} ${className || ""}`}>
@@ -32,23 +40,32 @@ export function CTASection({
       <Container
         className={`flex flex-col items-center ${isBottom ? "py-section-hero" : "py-section"} text-center`}
       >
-        <ScrollReveal>
-          <h2
-            className={`w-full max-w-2xl font-display ${isBottom ? "text-h1 text-text-inverse" : "text-h2 text-text-primary"}`}
-          >
-            {headline}
-          </h2>
-        </ScrollReveal>
-        {subtext && (
-          <ScrollReveal delay={1}>
-            <p
-              className={`mt-sm w-full max-w-xl ${isBottom ? "text-body-lg text-text-inverse/60" : "text-body-lg text-text-secondary"}`}
-            >
-              {subtext}
+        {/* Problem reframe for bottom CTA */}
+        {isBottom && (
+          <ScrollReveal>
+            <p className="text-body-md text-text-inverse/50 mb-md max-w-xl">
+              L&D teams spend hours managing tools instead of delivering outcomes.
             </p>
           </ScrollReveal>
         )}
-        <ScrollReveal delay={2}>
+
+        <ScrollReveal delay={1}>
+          <h2
+            className={`w-full max-w-2xl font-display ${isBottom ? "text-h1 text-text-inverse" : "text-h2 text-text-primary"}`}
+          >
+            {headline || defaultHeadline}
+          </h2>
+        </ScrollReveal>
+        {((subtext !== undefined ? subtext : defaultSubtext)) && (
+          <ScrollReveal delay={2}>
+            <p
+              className={`mt-sm w-full max-w-xl ${isBottom ? "text-body-lg text-text-inverse/60" : "text-body-lg text-text-secondary"}`}
+            >
+              {subtext || defaultSubtext}
+            </p>
+          </ScrollReveal>
+        )}
+        <ScrollReveal delay={3}>
           <div className="mt-xl flex flex-wrap justify-center gap-sm">
             <a
               href="#demo"
@@ -77,10 +94,10 @@ export function CTASection({
           </div>
         </ScrollReveal>
 
-        {/* Trust badges for bottom CTA */}
+        {/* Trust badges + credibility for bottom CTA */}
         {isBottom && (
-          <ScrollReveal delay={3}>
-            <div className="mt-xl flex items-center justify-center gap-lg">
+          <ScrollReveal delay={4}>
+            <div className="mt-xl flex flex-wrap items-center justify-center gap-lg">
               {["No credit card required", "Setup in 15 minutes", "Cancel anytime"].map((text) => (
                 <div key={text} className="flex items-center gap-xs">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-success-300">
@@ -90,6 +107,9 @@ export function CTASection({
                 </div>
               ))}
             </div>
+            <p className="text-label-sm text-text-inverse/30 text-center mt-lg">
+              Built by operators with experience in IT, healthcare, and workplace learning.
+            </p>
           </ScrollReveal>
         )}
       </Container>

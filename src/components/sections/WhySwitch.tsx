@@ -47,7 +47,7 @@ export function WhySwitch() {
           <ScrollReveal delay={2}>
             <div className="relative h-full rounded-xl border border-brand-200/60 bg-brand-50/40 p-lg shadow-card overflow-hidden">
               {/* Subtle decorative gradient */}
-              <div className="absolute top-0 right-0 h-[120px] w-[120px] rounded-full bg-action-primary/5 blur-[40px]" />
+              <div className="absolute top-0 right-0 h-[160px] w-[160px] rounded-full bg-action-primary/10 blur-[50px]" />
 
               <h3 className="text-h4 font-display font-semibold text-action-primary mb-lg">
                 With Sodium
@@ -68,10 +68,16 @@ export function WhySwitch() {
           </ScrollReveal>
         </div>
 
+        {/* Summary stat */}
         <ScrollReveal delay={3}>
-          <p className="mt-xl text-body-lg text-text-secondary text-center max-w-2xl mx-auto">
-            Most learning tools do one thing well. <span className="font-semibold text-text-primary">Sodium Learn does all of it.</span>
-          </p>
+          <div className="mt-xxl text-center">
+            <p className="text-h3 font-semibold text-text-primary">
+              <span className="gradient-text">7+ hours</span> saved per week on learning admin
+            </p>
+            <p className="text-body-md text-text-secondary mt-xs max-w-md mx-auto">
+              Most learning tools do one thing well. Sodium Learn does all of it.
+            </p>
+          </div>
         </ScrollReveal>
       </Container>
     </section>

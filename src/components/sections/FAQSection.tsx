@@ -92,7 +92,7 @@ export function FAQSection({ sanityData }: FAQSectionProps) {
       <Container>
         <ScrollReveal>
           <div className="mx-auto max-w-2xl">
-            <Badge>FAQ</Badge>
+            <Badge>FREQUENTLY ASKED QUESTIONS</Badge>
             <h2 className="text-h2 mt-sm text-text-primary font-display">
               Common questions about Sodium Learn
             </h2>

@@ -1,16 +1,15 @@
 import { draftMode } from "next/headers";
 import { Hero } from "@/components/sections/Hero";
+import { ProductPreview } from "@/components/sections/ProductPreview";
 import { Problem } from "@/components/sections/Problem";
-import { SocialProof } from "@/components/sections/SocialProof";
-import { Stats } from "@/components/sections/Stats";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { Features } from "@/components/sections/Features";
-import { CTASection } from "@/components/sections/CTASection";
-import { FeatureShowcase } from "@/components/sections/FeatureShowcase";
+import { CreateManageLearn } from "@/components/sections/CreateManageLearn";
 import { WhySwitch } from "@/components/sections/WhySwitch";
+import { Outcomes } from "@/components/sections/Outcomes";
 import { UseCases } from "@/components/sections/UseCases";
+import { Trust } from "@/components/sections/Trust";
 import { TestimonialsWall } from "@/components/sections/TestimonialsWall";
 import { FAQSection } from "@/components/sections/FAQSection";
+import { CTASection } from "@/components/sections/CTASection";
 import { getDraftClient } from "@/lib/sanity/client";
 import { TESTIMONIALS_QUERY, FAQ_QUERY } from "@/lib/sanity/queries";
 import { SanityVisualEditing } from "@/components/sanity/VisualEditing";
@@ -35,25 +34,16 @@ export default async function Home() {
     <>
       {draft.isEnabled && <SanityVisualEditing />}
       <Hero />
-      <SocialProof />
-      <Stats />
-      <HowItWorks />
-      <Features />
-      <CTASection
-        variant="mid"
-        headline="Ready to see what 7 hours saved looks like?"
-        subtext="Teams using Sodium Learn reclaim over 7 hours a week on learning administration. That's time back for strategy, not spreadsheets."
-      />
-      <FeatureShowcase />
+      <ProductPreview />
+      <Problem />
+      <CreateManageLearn />
       <WhySwitch />
+      <Outcomes />
       <UseCases />
+      <Trust />
       <TestimonialsWall sanityData={sanityTestimonials} />
       <FAQSection sanityData={sanityFaqs} />
-      <CTASection
-        variant="bottom"
-        headline="Stop managing learning. Start delivering outcomes."
-        subtext="Run training, knowledge, and learning all in one place."
-      />
+      <CTASection variant="bottom" />
     </>
   );
 }
