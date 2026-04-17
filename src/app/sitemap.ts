@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/constants";
-import { client } from "@/lib/sanity/client";
-import { POST_SLUGS_QUERY, SOLUTION_SLUGS_QUERY } from "@/lib/sanity/queries";
 
 const fallbackBlogSlugs = [
   "why-70-percent-compliance-completion-not-enough",
@@ -30,17 +28,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogSlugs = fallbackBlogSlugs;
   let solutionSlugs = fallbackSolutionSlugs;
 
-  try {
-    const sanityBlogSlugs = await client.fetch(POST_SLUGS_QUERY);
-    if (sanityBlogSlugs && sanityBlogSlugs.length > 0) {
-      blogSlugs = sanityBlogSlugs;
+  // Only fetch from Sanity if environment variables are configured
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    try {
+      const { client } = await import("@/lib/sanity/client");
+      const { POST_SLUGS_QUERY, SOLUTION_SLUGS_QUERY } = await import(
+        "@/lib/sanity/queries"
+      );
+
+      const sanityBlogSlugs = await client.fetch(POST_SLUGS_QUERY);
+      if (sanityBlogSlugs && sanityBlogSlugs.length > 0) {
+        blogSlugs = sanityBlogSlugs;
+      }
+      const sanitySolutionSlugs = await client.fetch(SOLUTION_SLUGS_QUERY);
+      if (sanitySolutionSlugs && sanitySolutionSlugs.length > 0) {
+        solutionSlugs = sanitySolutionSlugs;
+      }
+    } catch {
+      // Use fallbacks
     }
-    const sanitySolutionSlugs = await client.fetch(SOLUTION_SLUGS_QUERY);
-    if (sanitySolutionSlugs && sanitySolutionSlugs.length > 0) {
-      solutionSlugs = sanitySolutionSlugs;
-    }
-  } catch {
-    // Use fallbacks
   }
 
   return [
