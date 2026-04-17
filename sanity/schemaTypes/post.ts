@@ -37,8 +37,9 @@ export const post = defineType({
           type: "string",
           title: "Alternative text",
           validation: (rule) =>
-            rule.custom((value, context: { parent?: { asset?: unknown } }) => {
-              if (context?.parent?.asset && !value) {
+            rule.custom((value, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              if (parent?.asset && !value) {
                 return "Alt text is required for accessibility";
               }
               return true;
