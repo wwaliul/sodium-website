@@ -7,5 +7,5 @@ import { VisualEditing } from "@sanity/visual-editing/react";
  * Place this component at the root of any page that should support visual editing
  */
 export function SanityVisualEditing() {
-  return <VisualEditing />;
+  return <VisualEditing portal />;
 }
