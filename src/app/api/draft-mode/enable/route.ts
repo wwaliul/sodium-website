@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Enable draft mode and set the token
-  draftMode().enable();
+  (await draftMode()).enable();
   document.cookie = `sanity-token=${token}; Path=/; SameSite=Lax`;
 
   // Redirect to the page the user came from
