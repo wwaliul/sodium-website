@@ -1,3 +1,4 @@
+import { draftMode } from "next/headers";
 import { Hero } from "@/components/sections/Hero";
 import { Problem } from "@/components/sections/Problem";
 import { SocialProof } from "@/components/sections/SocialProof";
@@ -9,12 +10,16 @@ import { WhySwitch } from "@/components/sections/WhySwitch";
 import { UseCases } from "@/components/sections/UseCases";
 import { TestimonialsWall } from "@/components/sections/TestimonialsWall";
 import { FAQSection } from "@/components/sections/FAQSection";
-import { client } from "@/lib/sanity/client";
+import { getDraftClient } from "@/lib/sanity/client";
 import { TESTIMONIALS_QUERY, FAQ_QUERY } from "@/lib/sanity/queries";
+import { VisualEditing } from "@/components/sanity/VisualEditing";
 
 export const revalidate = 3600;
 
 export default async function Home() {
+  const draft = await draftMode();
+  const client = await getDraftClient();
+
   let sanityTestimonials: unknown[] = [];
   let sanityFaqs: unknown[] = [];
 
@@ -27,6 +32,7 @@ export default async function Home() {
 
   return (
     <>
+      {draft.isEnabled && <VisualEditing />}
       <Hero />
       <Problem />
       <SocialProof />
