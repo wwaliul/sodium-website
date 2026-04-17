@@ -1,0 +1,19 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Railway (Staging)
+        uses: railwayapp/railway-deploy@v1
+        with:
+          railway-token: ${{ secrets.RAILWAY_STAGING_TOKEN }}
+          environment: staging
